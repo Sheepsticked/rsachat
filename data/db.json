@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "username": "dsaf",
+      "socketId": "xG-KXiYWj1nOjPg4AAAL",
+      "connected": false,
+      "publickey": {}
+    },
+    {
+      "username": "dsaf",
+      "socketId": "aRD1VEvAbfq4KsyNAAAN",
+      "connected": false,
+      "publickey": {}
+    }
+  ]
+}

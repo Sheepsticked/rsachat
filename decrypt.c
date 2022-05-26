@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <gmp.h>
+#include <string.h>
+
+void powMod(mpz_t a, mpz_t b, mpz_t n, mpz_t x, mpz_t y)
+{
+    mpz_t buf;
+    mpz_init(buf);
+    mpz_set_ui(x, 1);
+    mpz_set(y, a);
+    while (mpz_cmp_si(b, 0) > 0)
+    {
+        mpz_set(buf, b);
+        mpz_mod_ui(buf, b, 2);
+        if (mpz_cmp_si(buf, 1) == 0)
+        {
+            mpz_mul(buf, x, y);
+            mpz_mod(x, buf, n);
+        }
+        mpz_mul(buf, y, y);
+        mpz_mod(y, buf, n);
+        mpz_fdiv_q_ui(b, b, 2);
+    }
+    mpz_mod(x, x, n);
+    mpz_clear(buf);
+}
+
+int main(int argc, char *argv[])
+{
+    mpz_t d, cipher, decrypt, n, x, y;
+    int count = argc;
+    int i = 3;
+    mpz_init(d);
+    mpz_init(decrypt);
+    mpz_init(cipher);
+    mpz_init(n);
+    mpz_init(x);
+    mpz_init(y);
+    while (count-- > 3)
+    {
+        mpz_set_str(cipher, argv[i], 10);
+        mpz_set_str(d, argv[1], 10);
+        mpz_set_str(n, argv[2], 10);
+        powMod(cipher, d, n, x, y);
+        mpz_set(decrypt, x);
+        mpz_out_str(stdout, 10, decrypt);
+        printf(" ");
+        i++;
+    }
+    mpz_clear(d);
+    mpz_clear(cipher);
+    mpz_clear(decrypt);
+    mpz_clear(n);
+    mpz_clear(x);
+    mpz_clear(y);
+}
