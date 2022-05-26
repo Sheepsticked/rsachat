@@ -11,7 +11,6 @@ function App() {
   let socket = null;
   let connected = false;
   socket = io("http://localhost:5000");
-  //socket = io("https://rsa.bsuir-student.by");
   socket.on("connect", () => {
     socket.emit("user", localStorage.getItem("Username"), socket.id, connected);
     console.log(socket.id);
